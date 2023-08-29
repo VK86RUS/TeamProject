@@ -25,6 +25,7 @@ public class SavingAccount extends Account {
             throw new IllegalArgumentException(
                     "Накопительная ставка не может быть отрицательной, а у вас: " + rate
             );
+
         }
         this.balance = initialBalance;
         this.minBalance = minBalance;
@@ -43,12 +44,12 @@ public class SavingAccount extends Account {
      * @return true если операция прошла успешно, false иначе.
      */
     @Override
-    public boolean pay(int amount) { // Данный метод допускает отрицательный баланс
+    public boolean pay(int amount) {
         if (amount <= 0) {
             return false;
         }
         balance = balance - amount;
-        if (balance > minBalance) { // баланс должен быть больше или равен минимальному балансу
+        if (balance > minBalance) {
             return true;
         } else {
             return false;
@@ -91,7 +92,7 @@ public class SavingAccount extends Account {
      * @return
      */
     @Override
-    public int yearChange() { // Метод не добавляет процент к балансу
+    public int yearChange() {
         return balance / 100 * rate;
     }
 

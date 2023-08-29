@@ -94,7 +94,6 @@ public class SavingAccountTest {
     @Test
     public void yearChangeWithMaxBalance() {
         SavingAccount account = new SavingAccount(3800, 1000, 3800, 50);
-//        int expectedChange = (3800 * 50) / 100;
         account.yearChange();
         Assertions.assertTrue(account.getBalance() <= account.getMaxBalance());
         Assertions.assertEquals(3800, account.getBalance());
@@ -123,11 +122,26 @@ public class SavingAccountTest {
 
     @Test
     public void maximumInterestRate() {
-//        int initialBalance = 1000;
         SavingAccount account = new SavingAccount(1000, 200, 10_000, 100);
         account.yearChange();
         Assertions.assertEquals(2000, account.getBalance());
 
 
     }
+
+    @Test
+    public void InvalidMinMaxBalance() {
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            new SavingAccount(2500, 5000, 2000, 10); // Минимальный баланс больше максимального
+        });
+    }
+
+    @Test
+    public void limitFromMaxBalanceToMinBalance() {
+        IllegalArgumentException illegalArgumentException = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            new SavingAccount(100, 1000, 2000, 10); // тут баланс уходит за пределы минимального
+        });
+    }
 }
+
