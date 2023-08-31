@@ -25,6 +25,16 @@ public class SavingAccount extends Account {
               "Накопительная ставка не может быть отрицательной, а у вас: " + rate
             );
         }
+        if (minBalance > maxBalance) {
+            throw new IllegalArgumentException(
+                    "Минимальный баланс не может быть больше максимального"
+            );
+        }
+        if (initialBalance < minBalance || initialBalance > maxBalance) {
+            throw new IllegalArgumentException(
+                    "Начальный баланс должен находиться в пределах от " + maxBalance + "до" + maxBalance
+            );
+        }
         this.balance = initialBalance;
         this.minBalance = minBalance;
         this.maxBalance = maxBalance;
@@ -42,11 +52,11 @@ public class SavingAccount extends Account {
      */
     @Override
     public boolean pay(int amount) {
-        if (amount <= 0) {
+        if (amount <= 0 || balance - amount <minBalance) {
             return false;
         }
         balance = balance - amount;
-        if (balance > minBalance) {
+        if (balance >= minBalance) {
             return true;
         } else {
             return false;
@@ -69,8 +79,8 @@ public class SavingAccount extends Account {
         if (amount <= 0) {
             return false;
         }
-        if (balance + amount < maxBalance) {
-            balance = amount;
+        if (balance + amount <= maxBalance) {
+            balance += amount;
             return true;
         } else {
             return false;
@@ -86,7 +96,13 @@ public class SavingAccount extends Account {
      */
     @Override
     public int yearChange() {
-        return balance / 100 * rate;
+        int interest = (balance*rate)/100;
+        balance += interest;
+        return interest;
+    }
+    public void addInterest() {
+        int interest = yearChange();
+        balance += interest;
     }
 
     public int getMinBalance() {
