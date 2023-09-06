@@ -103,8 +103,13 @@ public class SavingAccount extends Account {
      */
     @Override
     public int yearChange() {
-        int interest = (balance*rate)/100;
-        balance += interest;
+        int interest = (balance * rate) / 100;
+        int newBalance = balance + interest;
+        if (newBalance > maxBalance) {
+            balance = maxBalance; // Устанавливаем баланс в максимальное значение
+        } else {
+            balance = newBalance;
+        }
         return interest;
     }
     public void addInterest() {
