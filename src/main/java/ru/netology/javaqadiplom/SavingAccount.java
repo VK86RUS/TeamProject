@@ -55,7 +55,7 @@ public class SavingAccount extends Account {
      */
     @Override
     public boolean pay(int amount) {
-        if (amount <= 0 || balance - amount <minBalance) {
+        if (amount <= 0 || balance - amount < minBalance) {
             return false;
         }
         balance = balance - amount;
@@ -106,12 +106,13 @@ public class SavingAccount extends Account {
         int interest = (balance * rate) / 100;
         int newBalance = balance + interest;
         if (newBalance > maxBalance) {
-            balance = maxBalance; // Устанавливаем баланс в максимальное значение
+            balance = maxBalance;
         } else {
             balance = newBalance;
         }
         return interest;
     }
+
     public void addInterest() {
         int interest = yearChange();
         balance += interest;
@@ -125,5 +126,6 @@ public class SavingAccount extends Account {
     public int getMaxBalance() {
         return maxBalance;
     }
+
 }
 

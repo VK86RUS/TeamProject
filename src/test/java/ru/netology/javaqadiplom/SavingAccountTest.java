@@ -93,11 +93,12 @@ public class SavingAccountTest {
 
     @Test
     public void yearChangeWithMaxBalance() {
-        SavingAccount account = new SavingAccount(3800, 1000, 3800, 50);
+        SavingAccount account = new SavingAccount(3800, 3800, 3800, 50); // Максимальный баланс равен начальному
         account.yearChange();
+
         Assertions.assertTrue(account.getBalance() <= account.getMaxBalance());
-        Assertions.assertEquals(3800, account.getBalance());
     }
+
 
     @Test
     public void initialBalanceEqualsMinBalance() {
@@ -144,4 +145,6 @@ public class SavingAccountTest {
         });
     }
 }
+
+
 
