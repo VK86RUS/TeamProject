@@ -55,7 +55,7 @@ public class SavingAccount extends Account {
      */
     @Override
     public boolean pay(int amount) {
-        if (amount <= 0 || balance - amount <minBalance) {
+        if (amount <= 0 || balance - amount < minBalance) {
             return false;
         }
         balance = balance - amount;
@@ -112,6 +112,7 @@ public class SavingAccount extends Account {
         }
         return interest;
     }
+
     public void addInterest() {
         int interest = yearChange();
         balance += interest;
